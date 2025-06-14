@@ -308,7 +308,17 @@ export default function Dashboard() {
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
             refreshPasswords={fetchPasswords}
-           initialData={editData ?? undefined}
+          initialData={
+  editData
+    ? {
+        ...editData,
+        cardNumber: editData.cardNumber ?? "",
+        expiry: editData.expiry ?? "",
+        cvv: editData.cvv ?? "",
+      }
+    : undefined
+}
+
 
           />
         )}
