@@ -14,7 +14,7 @@ import {
 import PasswordModal from "@/components/PasswordModal";
 
 // Define the structure of a password item
-type PasswordEntry = {
+type PasswordItem = {
   title: string;
   username?: string;
   password?: string;
