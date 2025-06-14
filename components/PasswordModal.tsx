@@ -1,14 +1,26 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import { X, Eye, EyeOff, Shuffle } from "lucide-react";
 import axios from "axios";
+
+interface PasswordEntry {
+  title: string;
+  username: string;
+  password: string;
+  category: string;
+  cardNumber: string;
+  expiry: string;
+  cvv: string;
+  notes: string;
+  _id?: string;
+}
 
 interface Props {
   isOpen: boolean;
   onClose: () => void;
   refreshPasswords: () => Promise<void>;
-  initialData?: any;
+  initialData?: PasswordEntry;
 }
 
 const PasswordModal: React.FC<Props> = ({
@@ -17,7 +29,7 @@ const PasswordModal: React.FC<Props> = ({
   refreshPasswords,
   initialData,
 }) => {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<PasswordEntry>({
     title: "",
     username: "",
     password: "",
@@ -27,6 +39,7 @@ const PasswordModal: React.FC<Props> = ({
     cvv: "",
     notes: "",
   });
+
   const [showPassword, setShowPassword] = useState(false);
   const [showCVV, setShowCVV] = useState(false);
 
@@ -34,7 +47,7 @@ const PasswordModal: React.FC<Props> = ({
     if (initialData) setForm(initialData);
   }, [initialData]);
 
-  const handleChange = (e: any) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
@@ -48,14 +61,10 @@ const PasswordModal: React.FC<Props> = ({
     setForm((prev) => ({ ...prev, password: pass }));
   };
 
-
-
   const handleSubmit = async () => {
     try {
       if (initialData?._id) {
-        await axios.put(`/api/passwords/update/${initialData._id}`, {
-          ...form,
-        });
+        await axios.put(`/api/passwords/update/${initialData._id}`, form);
       } else {
         await axios.post("/api/passwords/add", form);
       }
