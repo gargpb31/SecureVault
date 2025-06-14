@@ -38,7 +38,7 @@ const PasswordModal: React.FC<Props> = ({
     expiry: "",
     cvv: "",
     notes: "",
-    id:"",
+    _id:"",
   });
 
   const [showPassword, setShowPassword] = useState(false);
