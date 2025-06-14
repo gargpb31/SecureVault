@@ -1,5 +1,3 @@
-// This file is your updated Dashboard component with improved CSS
-
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -15,6 +13,16 @@ import {
 
 import PasswordModal from "@/components/PasswordModal";
 
+// Define the structure of a password item
+type PasswordItem = {
+  _id: string;
+  title: string;
+  username: string;
+  password: string;
+  category: string;
+  notes?: string;
+};
+
 const categories = [
   { label: "All", icon: Sun },
   { label: "Passkeys", icon: KeyRound },
@@ -27,11 +35,11 @@ const categories = [
 
 export default function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedItem, setSelectedItem] = useState<any>(null);
-  const [items, setItems] = useState<any[]>([]);
+  const [selectedItem, setSelectedItem] = useState<PasswordItem | null>(null);
+  const [items, setItems] = useState<PasswordItem[]>([]);
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editData, setEditData] = useState<any>(null);
+  const [editData, setEditData] = useState<PasswordItem | null>(null);
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
@@ -62,7 +70,7 @@ export default function Dashboard() {
     try {
       await navigator.clipboard.writeText(text);
       alert("Password copied to clipboard!");
-    } catch (err) {
+    } catch {
       alert("Failed to copy password.");
     }
   };
@@ -81,7 +89,7 @@ export default function Dashboard() {
     setIsModalOpen(true);
   };
 
-  const openEditModal = (item: any) => {
+  const openEditModal = (item: PasswordItem) => {
     setEditData(item);
     setIsModalOpen(true);
   };
@@ -118,9 +126,9 @@ export default function Dashboard() {
           onChange={(e) => setSearch(e.target.value)}
         />
         <ul className="space-y-2">
-          {filteredItems.map((item, index) => (
+          {filteredItems.map((item) => (
             <li
-              key={index}
+              key={item._id}
               className="flex justify-between items-center p-2 rounded cursor-pointer hover:bg-zinc-700 group"
             >
               <div onClick={() => setSelectedItem(item)} className="flex-1">
@@ -168,6 +176,7 @@ export default function Dashboard() {
             + Add Password
           </button>
         </div>
+
         {selectedItem ? (
           <div className="bg-zinc-800 p-8 rounded-2xl shadow-lg max-w-3xl w-full mx-auto space-y-6 transition-all relative">
             {/* Top Right Buttons */}
@@ -262,49 +271,26 @@ export default function Dashboard() {
                 </div>
               )}
             </div>
-            {/* Security Tips Section */}
+
+            {/* Security Tips */}
             <div className="bg-zinc-700 p-4 rounded-xl text-zinc-200 mt-6 space-y-2">
               <h3 className="text-lg font-semibold text-white">
                 🛡️ Security Tips
               </h3>
               <ul className="list-disc list-inside space-y-1 text-sm">
-                <li>
-                  🗓️ <strong>Update regularly:</strong> Change your passwords
-                  every 30 days.
-                </li>
-                <li>
-                  🙅‍♂️ <strong>Don’t share:</strong> Never share your passwords
-                  via chat, email, or phone.
-                </li>
-                <li>
-                  🔢 <strong>Use strong passwords:</strong> Mix uppercase,
-                  lowercase, numbers & symbols.
-                </li>
-                <li>
-                  🧠 <strong>Stay unique:</strong> Avoid using the same password
-                  across multiple sites.
-                </li>
-                <li>
-                  🛡️ <strong>Use 2FA:</strong> Enable two-factor authentication
-                  for extra security.
-                </li>
+                <li>🗓️ <strong>Update regularly:</strong> every 30 days.</li>
+                <li>🙅‍♂️ <strong>Don’t share:</strong> use trusted apps only.</li>
+                <li>🔢 <strong>Use strong passwords:</strong> symbols + numbers.</li>
+                <li>🧠 <strong>Stay unique:</strong> no duplicates across sites.</li>
+                <li>🛡️ <strong>Use 2FA:</strong> whenever possible.</li>
               </ul>
             </div>
 
             {/* Footer */}
             <div className="border-t border-zinc-700 pt-4 text-sm text-zinc-400 space-y-2">
-              <p>
-                🔒 <strong>Encrypted:</strong> Your password is securely
-                encrypted and visible only to you.
-              </p>
-              <p>
-                💡 <strong>Pro Tip:</strong> Avoid reusing passwords. Use
-                strong, unique credentials for every account.
-              </p>
-              <p>
-                ✨ <strong>Tip:</strong> Add notes for recovery hints, secondary
-                info, or expiration dates.
-              </p>
+              <p>🔒 <strong>Encrypted:</strong> Only you can see this.</p>
+              <p>💡 <strong>Pro Tip:</strong> Never reuse credentials.</p>
+              <p>✨ <strong>Tip:</strong> Use notes for hints or backup codes.</p>
             </div>
           </div>
         ) : (
