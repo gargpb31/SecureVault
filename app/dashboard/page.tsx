@@ -309,7 +309,7 @@ export default function Dashboard() {
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
             refreshPasswords={fetchPasswords}
-     initialData={editData as PasswordEntry}
+     initialData={editData as PasswordItem}
 
 
           />
