@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { X, Eye, EyeOff, Clipboard, Shuffle } from "lucide-react";
+import { X, Eye, EyeOff, Shuffle } from "lucide-react";
 import axios from "axios";
 
 interface Props {
@@ -48,7 +48,7 @@ const PasswordModal: React.FC<Props> = ({
     setForm((prev) => ({ ...prev, password: pass }));
   };
 
-  const copy = (text: string) => navigator.clipboard.writeText(text);
+
 
   const handleSubmit = async () => {
     try {
