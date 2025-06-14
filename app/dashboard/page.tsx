@@ -23,6 +23,7 @@ type PasswordItem = {
   notes?: string;
 };
 
+
 const categories = [
   { label: "All", icon: Sun },
   { label: "Passkeys", icon: KeyRound },
@@ -308,7 +309,7 @@ export default function Dashboard() {
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
             refreshPasswords={fetchPasswords}
-        initialData={editData || undefined}
+     initialData={editData as PasswordEntry}
 
 
           />
