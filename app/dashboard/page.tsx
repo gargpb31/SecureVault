@@ -21,6 +21,9 @@ type PasswordItem = {
   password: string;
   category: string;
   notes?: string;
+  cardNumber?: string;
+  expiry?: string;
+  cvv?: string;
 };
 
 
