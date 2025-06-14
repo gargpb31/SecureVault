@@ -14,17 +14,17 @@ import {
 import PasswordModal from "@/components/PasswordModal";
 
 // Define the structure of a password item
-type PasswordEntry = {
+interface PasswordEntry {
   title: string;
   username: string;
   password: string;
   category: string;
-  notes?: string;
   cardNumber: string;
   expiry: string;
   cvv: string;
-  _id: string;
-};
+  notes: string;
+  _id?: string;
+}
 
 const categories = [
   { label: "All", icon: Sun },
