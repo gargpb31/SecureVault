@@ -6,19 +6,16 @@ if (!MONGODB_URI) {
   throw new Error("Please define the MONGODB_URI environment variable");
 }
 
-// Extend NodeJS.Global to include mongoose cache
-declare global {
-  namespace NodeJS {
-    interface Global {
-      mongoose: {
-        conn: Mongoose | null;
-        promise: Promise<Mongoose> | null;
-      };
-    }
-  }
+// Attach custom types to globalThis directly (no namespace)
+interface MongooseGlobal {
+  mongoose: {
+    conn: Mongoose | null;
+    promise: Promise<Mongoose> | null;
+  };
 }
 
-const globalWithMongoose = global as NodeJS.Global;
+// Cast globalThis with extended type
+const globalWithMongoose = globalThis as typeof globalThis & MongooseGlobal;
 
 if (!globalWithMongoose.mongoose) {
   globalWithMongoose.mongoose = { conn: null, promise: null };
