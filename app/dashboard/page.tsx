@@ -14,18 +14,17 @@ import {
 import PasswordModal from "@/components/PasswordModal";
 
 // Define the structure of a password item
-type PasswordItem = {
+type PasswordEntry = {
   title: string;
-  username?: string;
-  password?: string;
+  username: string;
+  password: string;
   category: string;
   notes?: string;
-  cardNumber?: string;
-  expiry?: string;
-  cvv?: string;
+  cardNumber: string;
+  expiry: string;
+  cvv: string;
   _id: string;
 };
-type PasswordItem = PasswordEntry;
 
 const categories = [
   { label: "All", icon: Sun },
@@ -39,11 +38,11 @@ const categories = [
 
 export default function Dashboard() {
   const [selectedCategory, setSelectedCategory] = useState("All");
-  const [selectedItem, setSelectedItem] = useState<PasswordItem | null>(null);
-  const [items, setItems] = useState<PasswordItem[]>([]);
+  const [selectedItem, setSelectedItem] = useState<PasswordEntry | null>(null);
+  const [items, setItems] = useState<PasswordEntry[]>([]);
   const [search, setSearch] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editData, setEditData] = useState<PasswordItem | null>(null);
+  const [editData, setEditData] = useState<PasswordEntry | null>(null);
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
@@ -69,6 +68,7 @@ export default function Dashboard() {
       console.error("Delete failed:", err);
     }
   };
+  
 
   const handleCopy = async (text: string) => {
     try {
@@ -93,7 +93,7 @@ export default function Dashboard() {
     setIsModalOpen(true);
   };
 
-  const openEditModal = (item: PasswordItem) => {
+  const openEditModal = (item: PasswordEntry) => {
     setEditData(item);
     setIsModalOpen(true);
   };
@@ -146,7 +146,7 @@ export default function Dashboard() {
                   title="Edit"
                 >
                   ✏️
-                </button>
+                </button> 
                 <button
                   onClick={() => handleCopy(item.password)}
                   className="text-green-400 hover:text-green-600"
@@ -282,19 +282,35 @@ export default function Dashboard() {
                 🛡️ Security Tips
               </h3>
               <ul className="list-disc list-inside space-y-1 text-sm">
-                <li>🗓️ <strong>Update regularly:</strong> every 30 days.</li>
-                <li>🙅‍♂️ <strong>Don’t share:</strong> use trusted apps only.</li>
-                <li>🔢 <strong>Use strong passwords:</strong> symbols + numbers.</li>
-                <li>🧠 <strong>Stay unique:</strong> no duplicates across sites.</li>
-                <li>🛡️ <strong>Use 2FA:</strong> whenever possible.</li>
+                <li>
+                  🗓️ <strong>Update regularly:</strong> every 30 days.
+                </li>
+                <li>
+                  🙅‍♂️ <strong>Don’t share:</strong> use trusted apps only.
+                </li>
+                <li>
+                  🔢 <strong>Use strong passwords:</strong> symbols + numbers.
+                </li>
+                <li>
+                  🧠 <strong>Stay unique:</strong> no duplicates across sites.
+                </li>
+                <li>
+                  🛡️ <strong>Use 2FA:</strong> whenever possible.
+                </li>
               </ul>
             </div>
 
             {/* Footer */}
             <div className="border-t border-zinc-700 pt-4 text-sm text-zinc-400 space-y-2">
-              <p>🔒 <strong>Encrypted:</strong> Only you can see this.</p>
-              <p>💡 <strong>Pro Tip:</strong> Never reuse credentials.</p>
-              <p>✨ <strong>Tip:</strong> Use notes for hints or backup codes.</p>
+              <p>
+                🔒 <strong>Encrypted:</strong> Only you can see this.
+              </p>
+              <p>
+                💡 <strong>Pro Tip:</strong> Never reuse credentials.
+              </p>
+              <p>
+                ✨ <strong>Tip:</strong> Use notes for hints or backup codes.
+              </p>
             </div>
           </div>
         ) : (
@@ -312,9 +328,7 @@ export default function Dashboard() {
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
             refreshPasswords={fetchPasswords}
-     initialData={editData as PasswordItem}
-
-
+            initialData={editData as PasswordEntry}
           />
         )}
       </div>
