@@ -15,15 +15,15 @@ import PasswordModal from "@/components/PasswordModal";
 
 // Define the structure of a password item
 type PasswordItem = {
-  _id: string;
   title: string;
-  username: string;
-  password: string;
+  username?: string;
+  password?: string;
   category: string;
   notes?: string;
   cardNumber?: string;
   expiry?: string;
   cvv?: string;
+  _id: string;
 };
 
 
