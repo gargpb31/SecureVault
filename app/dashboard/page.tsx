@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 
 import PasswordModal from "@/components/PasswordModal";
-
+type PasswordItem = PasswordEntry;
 // Define the structure of a password item
 type PasswordItem = {
   title: string;
