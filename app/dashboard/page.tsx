@@ -308,7 +308,8 @@ export default function Dashboard() {
             isOpen={isModalOpen}
             onClose={() => setIsModalOpen(false)}
             refreshPasswords={fetchPasswords}
-            initialData={editData}
+           initialData={editData ?? undefined}
+
           />
         )}
       </div>
