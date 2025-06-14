@@ -23,7 +23,7 @@ interface PasswordEntry {
   expiry: string;
   cvv: string;
   notes: string;
-  _id?: string;
+  _id: string;
 }
 
 const categories = [
