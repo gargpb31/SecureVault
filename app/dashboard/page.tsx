@@ -12,9 +12,9 @@ import {
 } from "lucide-react";
 
 import PasswordModal from "@/components/PasswordModal";
-type PasswordItem = PasswordEntry;
+
 // Define the structure of a password item
-type PasswordItem = {
+type PasswordEntry = {
   title: string;
   username?: string;
   password?: string;
@@ -25,7 +25,7 @@ type PasswordItem = {
   cvv?: string;
   _id: string;
 };
-
+type PasswordItem = PasswordEntry;
 
 const categories = [
   { label: "All", icon: Sun },
