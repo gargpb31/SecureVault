@@ -8,6 +8,11 @@ const PasswordSchema = new Schema(
     username: String,
     password: String,
     notes: String,
+
+    // ✅ Add these for credit card category
+    cardNumber: String,
+    cvv: String,
+    expiry: String,
   },
   { timestamps: true }
 );
