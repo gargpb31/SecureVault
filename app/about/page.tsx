@@ -27,7 +27,7 @@ const AboutPage = () => {
           <h1 className="text-3xl font-bold text-purple-400">About Me</h1>
 
           <p className="text-lg leading-relaxed text-gray-300">
-            Hi, I'm <strong className="text-purple-300">Sunny Garg</strong>, a
+            Hi, I&apos;m <strong className="text-purple-300">Sunny Garg</strong>, a
             passionate <strong>competitive programmer</strong> and full-stack
             developer currently pursuing my B.Tech at{" "}
             <strong>IIIT Allahabad</strong>. I thrive on solving complex coding
