@@ -13,7 +13,16 @@ export default async function handler(
 
   if (!userId) return res.status(401).json({ error: "Unauthorized" });
 
-  const { title, username, password, category, notes } = req.body;
+  const {
+    title,
+    username,
+    password,
+    category,
+    notes,
+    expiry,
+    cvv,
+    cardNumber,
+  } = req.body;
 
   await dbConnect();
 
@@ -22,6 +31,9 @@ export default async function handler(
     title,
     username,
     password,
+    cardNumber,
+    cvv,
+    expiry,
     category,
     notes,
   });
