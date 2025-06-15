@@ -13,7 +13,6 @@ import {
 
 import PasswordModal from "@/components/PasswordModal";
 
-// Define the structure of a password item
 interface PasswordEntry {
   title: string;
   username: string;
@@ -68,7 +67,6 @@ export default function Dashboard() {
       console.error("Delete failed:", err);
     }
   };
-  
 
   const handleCopy = async (text: string) => {
     try {
@@ -146,7 +144,7 @@ export default function Dashboard() {
                   title="Edit"
                 >
                   ✏️
-                </button> 
+                </button>
                 <button
                   onClick={() => handleCopy(item.password)}
                   className="text-green-400 hover:text-green-600"
@@ -207,18 +205,21 @@ export default function Dashboard() {
               <div>
                 <div className="flex items-center gap-4">
                   <h2 className="text-2xl font-bold">{selectedItem.title}</h2>
-                  <a
-                    href={`https://${selectedItem.title}.com`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <button
-                      className="px-3 py-1 text-sm bg-green-600 hover:bg-green-700 text-white rounded shadow transition"
-                      title={`Visit ${selectedItem.title}`}
-                    >
-                      🌐 Visit Site
-                    </button>
-                  </a>
+                  {selectedItem.category !== "Credit Card" &&
+                    selectedItem.category !== "Wi-Fi" && (
+                      <a
+                        href={`https://${selectedItem.title}.com`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <button
+                          className="px-3 py-1 text-sm bg-green-600 hover:bg-green-700 text-white rounded shadow transition"
+                          title={`Visit ${selectedItem.title}`}
+                        >
+                          🌐 Visit Site
+                        </button>
+                      </a>
+                    )}
                 </div>
                 <p className="text-sm text-zinc-400 mt-1">
                   Secure entry under category{" "}
@@ -231,37 +232,74 @@ export default function Dashboard() {
 
             {/* Details */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 text-base text-zinc-300">
-              <div className="flex flex-col">
-                <span className="text-zinc-500">👤 Username</span>
-                <span className="mt-1 text-white font-medium">
-                  {selectedItem.username}
-                </span>
-              </div>
-
-              <div className="flex flex-col relative">
-                <span className="text-zinc-500">🔑 Password</span>
-                <div className="flex items-center mt-1 bg-zinc-700 rounded p-2">
-                  <span className="font-mono text-white select-none">
-                    {showPassword ? selectedItem.password : "•".repeat(12)}
-                  </span>
-                  <div className="ml-auto flex gap-2">
-                    <button
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="text-blue-400 hover:text-blue-600 transition text-sm"
-                      title="Toggle visibility"
-                    >
-                      {showPassword ? "Hide" : "Show"}
-                    </button>
-                    <button
-                      onClick={() => handleCopy(selectedItem.password)}
-                      className="text-green-400 hover:text-green-600 transition text-sm"
-                      title="Copy password"
-                    >
-                      Copy
-                    </button>
+              {selectedItem.category !== "Credit Card" && (
+                <>
+                  <div className="flex flex-col">
+                    <span className="text-zinc-500">👤 Username</span>
+                    <span className="mt-1 text-white font-medium">
+                      {selectedItem.username}
+                    </span>
                   </div>
-                </div>
-              </div>
+
+                  <div className="flex flex-col relative">
+                    <span className="text-zinc-500">🔑 Password</span>
+                    <div className="flex items-center mt-1 bg-zinc-700 rounded p-2">
+                      <span className="font-mono text-white select-none">
+                        {showPassword ? selectedItem.password : "•".repeat(12)}
+                      </span>
+                      <div className="ml-auto flex gap-2">
+                        <button
+                          onClick={() => setShowPassword(!showPassword)}
+                          className="text-blue-400 hover:text-blue-600 transition text-sm"
+                          title="Toggle visibility"
+                        >
+                          {showPassword ? "Hide" : "Show"}
+                        </button>
+                        <button
+                          onClick={() => handleCopy(selectedItem.password)}
+                          className="text-green-400 hover:text-green-600 transition text-sm"
+                          title="Copy password"
+                        >
+                          Copy
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+
+              {selectedItem.category === "Credit Card" && (
+                <>
+                  <div className="flex flex-col">
+                    <span className="text-zinc-500">💳 Card Number</span>
+                    <div className="mt-1 bg-zinc-700 rounded p-2 flex items-center">
+                      <span className="text-white">
+                        {selectedItem.cardNumber}
+                      </span>
+                      <button
+                        onClick={() => handleCopy(selectedItem.cardNumber)}
+                        className="ml-auto text-green-400 hover:text-green-600 transition text-sm"
+                      >
+                        📋 Copy
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <span className="text-zinc-500">📅 Expiry Date</span>
+                    <span className="mt-1 text-white font-medium">
+                      {selectedItem.expiry}
+                    </span>
+                  </div>
+
+                  <div className="flex flex-col">
+                    <span className="text-zinc-500">🔐 CVV</span>
+                    <span className="mt-1 text-white font-medium">
+                      {selectedItem.cvv}
+                    </span>
+                  </div>
+                </>
+              )}
 
               <div className="flex flex-col sm:col-span-2">
                 <span className="text-zinc-500">📂 Category</span>
