@@ -10,11 +10,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const { setTheme } = useTheme();
+  const router = useRouter();
+  const themeAccent = "#9333ea";
 
-  const themeAccent = "#9333ea"; // Purple theme color
+  const handleNavClick = (item: string) => {
+    if (item === "Home") router.push("/");
+    else if (item === "About") router.push("/about");
+    else if (item === "Services") router.push("/services");
+  };
 
   return (
     <nav
@@ -59,6 +66,7 @@ const Navbar = () => {
           {["Home", "About", "Services"].map((item) => (
             <li
               key={item}
+              onClick={() => handleNavClick(item)}
               style={{
                 cursor: "pointer",
                 fontWeight: 500,
@@ -84,7 +92,6 @@ const Navbar = () => {
 
       {/* Right: Theme Toggle + Auth */}
       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-        {/* Theme Switcher */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -110,7 +117,6 @@ const Navbar = () => {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        {/* Auth Buttons */}
         <SignedOut>
           <SignInButton mode="modal">
             <Button
