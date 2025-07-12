@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import { Mail, Phone, Github, Linkedin } from "lucide-react";
+import { Mail, Phone, Github, Linkedin, Globe } from "lucide-react";
 
 const AboutPage = () => {
   return (
@@ -57,8 +57,8 @@ const AboutPage = () => {
             </p>
           </div>
 
-          {/* Buttons */}
-          <div className="flex gap-4 mt-6">
+          {/* Social Links */}
+          <div className="flex gap-4 mt-6 flex-wrap justify-center">
             <a
               href="https://github.com/gargpb31"
               target="_blank"
@@ -75,16 +75,25 @@ const AboutPage = () => {
             >
               <Linkedin /> LinkedIn
             </a>
+            <a
+              href="https://portfolio-sunny-gargs-projects.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-purple-400 hover:underline"
+            >
+              <Globe /> Portfolio
+            </a>
           </div>
 
           {/* Resume Download */}
-          <a
-            href="/resume.pdf"
-            download
-            className="mt-6 inline-block px-5 py-2 border border-purple-500 rounded-lg text-purple-300 hover:bg-purple-600 hover:text-white transition"
-          >
-            📄 Download Resume
-          </a>
+         <a
+  href="/resume.pdf"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="mt-6 inline-block px-5 py-2 border border-purple-500 rounded-lg text-purple-300 hover:bg-purple-600 hover:text-white transition"
+>
+  📄 View Resume
+</a>
         </div>
       </div>
     </div>
