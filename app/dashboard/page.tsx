@@ -19,7 +19,6 @@ import {
   Trash,
   Shield,
   Lock,
-  Zap,
 } from "lucide-react";
 
 import PasswordModal from "@/components/PasswordModal";
